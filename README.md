@@ -1,29 +1,36 @@
-# Smart ATS Chatbot
+# Smart ATS (Application Tracking System) Chatbot
 
-This is a **Smart ATS (Application Tracking System) Chatbot** that helps evaluate and improve your resume based on a given job description. The bot leverages advanced AI technology for assessing the match between a resume and a job description, scoring the resume, and providing actionable recommendations for improvement.
+A Streamlit-based intelligent Application Tracking System (ATS) chatbot that helps users evaluate and improve their resumes based on specific job descriptions. The system uses Google's Gemini Pro AI model and CrewAI for advanced resume analysis.
 
-## Features
+## 🌟 Features
 
-- **Resume Evaluation**: Upload your resume (PDF format), and the bot will evaluate how well it matches the job description.
-- **Job Description Matching**: Enter the job description, and the bot will compare it with your resume to calculate the JD match percentage.
-- **Resume Recommendations**: The bot provides specific recommendations to improve your resume, highlighting missing keywords and suggesting ways to optimize it for the job market.
-- **ATS-like Evaluation**: Simulates an ATS evaluation by analyzing your resume's content against the job description.
+- Real-time resume evaluation against job descriptions
+- PDF resume parsing capability
+- Interactive chat interface
+- Percentage match calculation
+- Missing keywords identification
+- Profile summary generation
+- Score assessment (out of 10)
+- Specific recommendations for improvement
+- Clean and user-friendly interface
 
-## Requirements
+## 📋 Prerequisites
 
-- Python 3.x
-- Required Python Libraries:
-  - `streamlit`: For building the web interface.
-  - `google-generativeai`: For leveraging Google's generative AI model.
-  - `PyPDF2`: For PDF text extraction.
-  - `python-dotenv`: For managing environment variables.
-  - `crewai`: For creating AI workflows and agents.
+Before running the application, make sure you have the following:
 
-You can install the required libraries using the following:
+- Python 3.7+
+- Google API key for Gemini Pro
+- Required Python packages (listed in requirements.txt)
 
+## 💻 Installation & Setup
+
+1. Clone the repository:
 ```bash
+git clone https://github.com/yourusername/smart-ats-chatbot.git
+cd smart-ats-chatbot
+python -m venv venv
+source venv/bin/activate  # On Windows, use: venv\Scripts\activate
 
-pip install streamlit google-generativeai PyPDF2 python-dotenv crewai
 
 
 
