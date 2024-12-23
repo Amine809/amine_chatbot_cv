@@ -22,6 +22,7 @@ This is a **Smart ATS (Application Tracking System) Chatbot** that helps evaluat
 You can install the required libraries using the following:
 
 ```bash
+
 pip install streamlit google-generativeai PyPDF2 python-dotenv crewai
 
 
