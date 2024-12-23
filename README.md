@@ -26,3 +26,4 @@ You can install the required libraries using the following:
 pip install streamlit google-generativeai PyPDF2 python-dotenv crewai
 
 
+
