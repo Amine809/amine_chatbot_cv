@@ -21,8 +21,7 @@ This is a **Smart ATS (Application Tracking System) Chatbot** that helps evaluat
 
 You can install the required libraries using the following:
 -pip install streamlit google-generativeai PyPDF2 python-dotenv crewai
-Setup
-For detailed setup instructions, check the SETUP.md file.
+
 
 ## How It Works
 Upload Resume: Upload your resume in PDF format using the file uploader.
