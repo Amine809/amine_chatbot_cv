@@ -1,4 +1,10 @@
-tion.
+# Smart ATS Chatbot
+
+This is a **Smart ATS (Application Tracking System) Chatbot** that helps evaluate and improve your resume based on a given job description. The bot leverages advanced AI technology for assessing the match between a resume and a job description, scoring the resume, and providing actionable recommendations for improvement.
+
+## Features
+
+- **Resume Evaluation**: Upload your resume (PDF format), and the bot will evaluate how well it matches the job description.
 - **Job Description Matching**: Enter the job description, and the bot will compare it with your resume to calculate the JD match percentage.
 - **Resume Recommendations**: The bot provides specific recommendations to improve your resume, highlighting missing keywords and suggesting ways to optimize it for the job market.
 - **ATS-like Evaluation**: Simulates an ATS evaluation by analyzing your resume's content against the job description.
@@ -40,7 +46,13 @@ streamlit run app.py
 - **Job Description**: Enter the job description, and the bot will compare it with your resume to calculate the JD match percentage.
 - **Chat with the Bot**: The bot provides specific recommendations to improve your resume, highlighting missing keywords and suggesting ways to optimize it for the job market.
 - **Feedback**: Simulates an ATS evaluation by analyzing your resume's content against the job description.
-  
+
+
+
+
+
+
+
 ## Contributing
 
 We welcome contributions to the project! If you'd like to contribute, follow these steps:
@@ -52,6 +64,8 @@ We welcome contributions to the project! If you'd like to contribute, follow the
 3- `Make your changes and commit them.
 Open a pull request with a description of your changes`.
 
+
+
 ## License
 
 
@@ -59,6 +73,9 @@ Open a pull request with a description of your changes`.
 - You can continue to add sections after the `pip install` code block, as shown above.
 - Use markdown syntax to format headings, bullet points, and code blocks.
 - After the `pip install` command, I added more detailed instructions on setup, usage, and contributing.
+
+
+
 
 
 
