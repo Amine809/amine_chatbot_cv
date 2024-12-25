@@ -53,7 +53,7 @@ I want the response in one single string having the structure:
 
 # Streamlit app
 st.set_page_config(page_title="Smart ATS Chatbot", layout="wide")
-st.title("🤖 Smart ATS Chatbot")
+st.title("🤖 Moahmed Amine Karmous Smart ATS Chatbot")
 st.markdown("<style>.chat-box {background-color: #f7f9fc; border-radius: 10px; padding: 15px; margin: 10px 0;} .user-message {background-color: #d1e7dd; text-align: left; padding: 10px; border-radius: 10px; margin-bottom: 10px; display: inline-block;} .bot-message {background-color: #fff3cd; text-align: left; padding: 10px; border-radius: 10px; margin-bottom: 10px; display: inline-block;}</style>", unsafe_allow_html=True)
 
 st.text("Chat with our ATS bot to evaluate and improve your resume's compatibility with job descriptions!")
