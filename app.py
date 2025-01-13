@@ -4,6 +4,9 @@ import os
 import PyPDF2 as pdf
 from dotenv import load_dotenv
 import json
+from langchain.agents import initialize_agent, Tool, AgentType
+from langchain.llms import OpenAI  # Or use Gemini model if supported in LangChain
+from langchain.prompts import PromptTemplate
 from crewai import Task, Agent, Workflow  # Crewai imports
 
 # Load environment variables
@@ -12,11 +15,30 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Crewai Agents and Tasks Setup
+
+# Define tools for LangChain agent
+tools = [
+    Tool(
+        name="PDF Reader",
+        func=lambda pdf_file: input_pdf_text(pdf_file),
+        description="This tool extracts text from a PDF resume file."
+    ),
+    Tool(
+        name="Job Description Evaluation",
+        func=lambda resume_text, jd: evaluate_resume(resume_text, jd),
+        description="This tool evaluates the resume against the job description."
+    )
+]
+
+# Set up LangChain with LLM
+llm = OpenAI(model="gpt-3.5-turbo")  # Or replace with Google Gemini or other model
+agent = initialize_agent(tools, llm, agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
+
 class ATSAgent(Agent):
     def process(self, resume_text, job_description):
-        prompt = input_prompt.format(text=resume_text, jd=job_description)
-        response = get_gemini_response(prompt)
-        return response
+        # Use LangChain agent to evaluate the resume
+        result = agent.run({"resume_text": resume_text, "job_description": job_description})
+        return result
 
 class ResumeAnalysisTask(Task):
     def execute(self, resume_text, job_description):
@@ -27,11 +49,7 @@ class ResumeAnalysisTask(Task):
 workflow = Workflow(name="ATS Resume Evaluation Workflow")
 workflow.add_task(ResumeAnalysisTask())
 
-def get_gemini_response(input):
-    model = genai.GenerativeModel('gemini-pro')
-    response = model.generate_content(input)
-    return response.text
-
+# Define the input PDF text extraction function
 def input_pdf_text(uploaded_file):
     reader = pdf.PdfReader(uploaded_file)
     text = ""
@@ -40,18 +58,22 @@ def input_pdf_text(uploaded_file):
         text += str(page_content.extract_text())
     return text
 
-# Prompt Template
-input_prompt = """
-Hey Act Like a skilled or very experienced ATS (Application Tracking System) with a deep understanding of the tech field, software engineering, data science, data analysis, and big data engineering.
-Your task is to evaluate the resume based on the given job description. You must consider the job market is very competitive and you should provide the best assistance for improving the resumes. Assign the percentage Matching based on JD and the missing keywords with high accuracy.
-Provide recommendations to improve the resume. Additionally, assign a score out of 10 based on how well the resume matches the JD and include three specific recommendations for improvement.
-Resume: {text}
-Description: {jd}
-I want the response in one single string having the structure:
-{{"JD Match":"%","MissingKeywords":[],"Profile Summary":"","Score":"/10","Recommendations":["", "", ""]}}
-"""
+# Define the resume evaluation function
+def evaluate_resume(resume_text, job_description):
+    input_prompt = f"""
+    Hey Act Like a skilled or very experienced ATS (Application Tracking System) with a deep understanding of the tech field, software engineering, data science, data analysis, and big data engineering.
+    Your task is to evaluate the resume based on the given job description. You must consider the job market is very competitive and you should provide the best assistance for improving the resumes. Assign the percentage Matching based on JD and the missing keywords with high accuracy.
+    Provide recommendations to improve the resume. Additionally, assign a score out of 10 based on how well the resume matches the JD and include three specific recommendations for improvement.
+    Resume: {resume_text}
+    Description: {job_description}
+    I want the response in one single string having the structure:
+    {{"JD Match":"%","MissingKeywords":[],"Profile Summary":"","Score":"/10","Recommendations":["", "", ""]}}
+    """
+    model = genai.GenerativeModel('gemini-pro')
+    response = model.generate_content(input_prompt)
+    return response.text
 
-# Streamlit app
+# Streamlit app setup
 st.set_page_config(page_title="Smart ATS Chatbot", layout="wide")
 st.title("🤖 Moahmed Amine Karmous Smart ATS Chatbot")
 st.markdown("<style>.chat-box {background-color: #f7f9fc; border-radius: 10px; padding: 15px; margin: 10px 0;} .user-message {background-color: #d1e7dd; text-align: left; padding: 10px; border-radius: 10px; margin-bottom: 10px; display: inline-block;} .bot-message {background-color: #fff3cd; text-align: left; padding: 10px; border-radius: 10px; margin-bottom: 10px; display: inline-block;}</style>", unsafe_allow_html=True)
